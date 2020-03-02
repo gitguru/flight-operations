@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<FlightOperations>
+	<FlightOperation>
+		<Number>AX-223</Number>
+		<DepartureTime>2020-02-29T07:11</DepartureTime>
+		<ArrivalTime>2020-02-29T08:39</ArrivalTime>
+		<Origin>SJO</Origin>
+		<Destination>LIR</Destination>
+		<Airline>BOV</Airline>
+		<Gate>3</Gate>
+		<Status>ON_TIME</Status>
+	</FlightOperation>
+	<FlightOperation>
+		<Number>IB-777</Number>
+		<DepartureTime>2020-02-29T07:11</DepartureTime>
+		<ArrivalTime>2020-02-29T14:30</ArrivalTime>
+		<Origin>LSL</Origin>
+		<Destination>DRK</Destination>
+		<Airline>CSX</Airline>
+		<Gate>1</Gate>
+		<Status>DELAYED</Status>
+	</FlightOperation>
+</FlightOperations>

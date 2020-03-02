@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/layout}">
+
+<head>
+    <title>Arrivals and Departures</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <h1 class="mt-4">Flight Operations</h1>
+
+    <form method="POST" th:action="@{/flightOperations}">
+        <div class="col-10 mx-auto">
+            <div class="row">
+                <div class="input-group input-group-lg mb-3">
+                    <div class="input-group-prepend">
+                        <div class="form-control form-check-inline m-0 p-2">
+                            <label class="form-check-label pl-2 pr-2" data-toggle="tooltip" title="Show arrivals!">
+                                <input type="radio" class="form-check-input" name="flightOperationType" value="ARRIVALS"
+                                       th:checked="${#strings.equals(state.flightOperationType, 'ARRIVALS')}">
+                                <i class="fa fa-plane-arrival"></i>
+                            </label>
+                        </div>
+                        <div class="form-control form-check-inline m-0 p-2">
+                            <label class="form-check-label pl-2 pr-2" data-toggle="tooltip" title="Show departures!">
+                                <input type="radio" class="form-check-input" name="flightOperationType" value="DEPARTURES"
+                                       th:checked="${#strings.equals(state.flightOperationType, 'DEPARTURES')}">
+                                <i class="fa fa-plane-departure"></i>
+                            </label>
+                        </div>
+                    </div>
+                    <select class="form-control p-2" name="airport">
+                        <option th:each="a:${airports}" th:value="${a.code}" th:text="${a.name + ' (' + a.code + ')'}"
+                        th:selected="${a.code == state.airport}">Name</option>
+                    </select>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-outline-primary">
+                            <i class="fa fa-search"></i>
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="col-10 mx-auto" th:if="${flightOperations}">
+
+        <!--display flight operations list-->
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Time</th>
+                <th scope="col">Flight</th>
+                <th scope="col" th:if="${#strings.equals(state.flightOperationType, 'ARRIVALS')}">From</th>
+                <th scope="col" th:if="${#strings.equals(state.flightOperationType, 'DEPARTURES')}">Destination</th>
+                <th scope="col">Airline</th>
+                <th scope="col">Gate</th>
+                <th scope="col">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="flight:${flightOperations}">
+                <td th:text="${#dates.format(flight.arrivalTime, 'HH:mm')}" th:if="${#strings.equals(state.flightOperationType, 'ARRIVALS')}"></td>
+                <td th:text="${#dates.format(flight.departureTime, 'HH:mm')}" th:if="${#strings.equals(state.flightOperationType, 'DEPARTURES')}"></td>
+                <td th:text="${flight.number}"></td>
+                <td th:text="${flight.origin.name + ' (' + flight.origin.code + ')'}" th:if="${#strings.equals(state.flightOperationType, 'ARRIVALS')}"></td>
+                <td th:text="${flight.destination.name + ' (' + flight.destination.code + ')'}" th:if="${#strings.equals(state.flightOperationType, 'DEPARTURES')}"></td>
+                <td th:text="${flight.airline.name}"></td>
+                <td th:text="${flight.gate}"></td>
+                <td th:text="${flight.status}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

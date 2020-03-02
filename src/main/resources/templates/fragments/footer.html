@@ -1,0 +1,9 @@
+<footer th:fragment="footer" class="footer" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="text-center">
+        <hr/>
+
+        <a href="http://about.blank"
+           th:text="'&copy; ' + ${#dates.format(#dates.createNow(),'YYYY')} + '. Flight Operations - Sample Code'">&copy;
+            Flight Operations - Sample Code</a>
+    </div>
+</footer>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layouts/layout}">
+
+<head>
+    <title>Airlines List</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-10 mx-auto">
+                <h1>Airlines List</h1>
+                <!--display error if any-->
+                <div class="alert alert-danger" role="alert" th:if="${!status}">
+                    <strong>Error:</strong>
+                    <span th:text="${message}"></span>
+                </div>
+
+                <!--display airlines list-->
+                <table class="table table-striped" th:if="${status}">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Code</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Country</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="airline, i : ${airlines}">
+                        <th scope="row" th:text="${i.index + 1}"></th>
+                        <td th:text="${airline.code}"></td>
+                        <td th:text="${airline.name}"></td>
+                        <td th:text="${airline.country}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
